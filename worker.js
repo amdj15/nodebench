@@ -7,14 +7,13 @@ function connector(host, port) {
 
   socket.on('connect', function() {
     var id = id || socket.id;
-    var msgId;
-    var pingsMaxCnt = 10,
+    var msgId,
         pingsCnt = 0;
 
     info[id] = [];
 
     var ping = function(){
-      if (++pingsCnt > pingsMaxCnt) return done(id);
+      if (++pingsCnt > maxMessages) return done(id);
 
       setTimeout(function(){
         msgId = guid();
@@ -66,6 +65,7 @@ var host = '192.168.20.70';
 var port = 3000;
 var connections = process.argv[argvIndex++] ? process.argv[argvIndex - 1] : 10;
 var delay =  process.argv[argvIndex++] ? process.argv[argvIndex - 1] : 1;
+var maxMessages = process.argv[argvIndex++] ? process.argv[argvIndex - 1] : 1;
 
 for (var i = 0; i < connections; i++) {
   connector(host, port);
