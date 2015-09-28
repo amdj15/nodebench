@@ -8,6 +8,6 @@ var delay = process.argv[argvIndex++] ? process.argv[argvIndex - 1] : 1;
 var maxMessages = process.argv[argvIndex++] ? process.argv[argvIndex - 1] : 100;
 var numCPUs = process.argv[argvIndex++] ? process.argv[argvIndex - 1] : require('os').cpus().length;
 
-for (var i = 0; i < 4; i++) {
+for (var i = 0; i < numCPUs; i++) {
   cp.fork(__dirname + '/worker.js', [connections, delay, maxMessages]);
 }
