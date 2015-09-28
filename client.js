@@ -1,20 +1,12 @@
-var connector = require('./worker');
+var cp = require('child_process');
 
 var argvIndex = 2;
-var host = 'localhost';
+var host = '192.168.20.70';
 var port = 3000;
 var connections = process.argv[argvIndex++] ? process.argv[argvIndex - 1] : 10;
-var delay =  process.argv[argvIndex++] ? process.argv[argvIndex - 1] : 1;
+var delay = process.argv[argvIndex++] ? process.argv[argvIndex - 1] : 1;
+var numCPUs = process.argv[argvIndex++] ? process.argv[argvIndex - 1] : require('os').cpus().length;
 
-/*var i = 0;
-var cb = function(socket){
-  if (parseInt(connections, 10) > i++) {
-    connector(host, port, delay, cb);
-  }
-}
-connector(host, port, delay, cb);
-*/
-
-for (var i = 0; i < connections; i++) {
-  connector(host, port, delay, function(socket){});
+for (var i = 0; i < 4; i++) {
+  cp.fork(__dirname + '/worker.js', [connections, delay]);
 }
