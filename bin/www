@@ -1,8 +1,19 @@
 #!/usr/bin/env node
 var debug = require('debug')('socketserver');
 var app = require('../app');
+var npid = require('npid');
 
-app.set('port', process.env.PORT || 3000);
+try {
+  var pid = npid.create('nodebench.pid');
+  pid.removeOnExit();
+} catch (err) {
+  console.log(err);
+  process.exit(1);
+}
+
+var port = process.env.PORT || 3000;
+
+app.set('port', port);
 
 var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);

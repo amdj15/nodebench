@@ -61,8 +61,8 @@ function guid() {
 }
 
 var argvIndex = 2;
-var host = '192.168.20.70';
-var port = 3000;
+var host = 'https://ndbench.herokuapp.com/';
+var port = 80;
 var connections = process.argv[argvIndex++] ? process.argv[argvIndex - 1] : 10;
 var delay =  process.argv[argvIndex++] ? process.argv[argvIndex - 1] : 1;
 var maxMessages = process.argv[argvIndex++] ? process.argv[argvIndex - 1] : 1;
